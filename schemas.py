@@ -19,11 +19,10 @@ class TaskUpdate(TaskBase):
     priority: Optional[str] = None
     due_date: Optional[datetime] = None
 
-# ✅ ИЗМЕНЕНИЕ: updated_at — Optional
 class Task(TaskBase):
     id: int
     created_at: datetime
-    updated_at: Optional[datetime] = None  # ← вот здесь!
+    updated_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True

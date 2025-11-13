@@ -3,12 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
 
-# ✅ ИМПОРТЫ — исправлено: используем alias для ясности
 from database import SessionLocal, engine, Base
-import models  # ← содержит models.Task (SQLAlchemy модель)
-from schemas import TaskCreate, TaskUpdate, Task as TaskSchema  # ← Pydantic-схема
+import models
+from schemas import TaskCreate, TaskUpdate, Task as TaskSchema
 
-# Middleware и инициализация
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -30,8 +28,6 @@ def get_db():
     finally:
         db.close()
 
-
-# === ЭНДПОИНТЫ ===
 
 @app.post("/tasks/", response_model=TaskSchema)
 def create_task(task: TaskCreate, db: Session = Depends(get_db)):
