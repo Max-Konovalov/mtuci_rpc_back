@@ -10,12 +10,19 @@ from schemas import TaskCreate, TaskUpdate, Task as TaskSchema
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["http://localhost:3000", "http://localhost:5173"],
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+#     allow_credentials=True  
+# )
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=["http://aeza-3xui.ru"],  # ← Замени на реальный домен фронта
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True  
+    allow_credentials=True
 )
 
 Base.metadata.create_all(bind=engine)
