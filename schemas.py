@@ -1,24 +1,30 @@
-from pydantic import BaseModel, Field
-from datetime import datetime
+# schemas.py
+from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 class TaskBase(BaseModel):
-    title: str = Field(..., max_length=100, min_length=3)
+    title: str
     description: Optional[str] = None
-    status: str = Field(default="todo", pattern="^(todo|in_progress|done)$")
-    priority: str = Field(default="medium", pattern="^(low|medium|high)$")
+    status: Optional[str] = "todo"
+    priority: Optional[str] = "medium"
     due_date: Optional[datetime] = None
 
 class TaskCreate(TaskBase):
     pass
 
 class TaskUpdate(TaskBase):
-    pass
+    title: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[str] = None
+    priority: Optional[str] = None
+    due_date: Optional[datetime] = None
 
+# ✅ ИЗМЕНЕНИЕ: updated_at — Optional
 class Task(TaskBase):
     id: int
     created_at: datetime
-    updated_at: Optional[datetime]
+    updated_at: Optional[datetime] = None  # ← вот здесь!
 
     class Config:
         from_attributes = True
